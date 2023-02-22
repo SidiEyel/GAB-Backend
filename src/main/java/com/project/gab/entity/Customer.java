@@ -34,7 +34,10 @@ public class Customer  implements UserDetails{
     @Id
     @GeneratedValue
     private Integer id;
-    private String fullusername;
+    
+    private String firstname;
+    private String lastname;
+    //private String fullusername;
     private String email;
     private String password;
 
