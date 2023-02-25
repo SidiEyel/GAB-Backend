@@ -1,14 +1,24 @@
 package com.project.gab.entity;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Accounts {
 	@Id
+	@GeneratedValue
+	private int id;
+	
 	private int acctID;
 	private int balance;
 	private String acctStatus;
+	
+	@ManyToOne
+  	@JoinColumn(name = "user_id")
+	public Customer useraccount;
 
 	public Accounts() {
 

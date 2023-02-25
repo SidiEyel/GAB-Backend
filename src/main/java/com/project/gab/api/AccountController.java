@@ -13,7 +13,7 @@ import com.project.gab.entity.Logger;
 import com.project.gab.service.serviceImpl.AccountsService;
 
 @RestController
-@RequestMapping("/api/account")
+@RequestMapping("/api")
 public class AccountController {
 	@Autowired
 	private AccountsService accountService;

@@ -37,7 +37,6 @@ public class Customer  implements UserDetails{
     
     private String firstname;
     private String lastname;
-    //private String fullusername;
     private String email;
     private String password;
 
@@ -47,6 +46,8 @@ public class Customer  implements UserDetails{
     @OneToMany(mappedBy = "user")
     private List<Token> tokens;
 
+    @OneToMany(mappedBy = "useraccount")
+    private List<Accounts> accounts;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

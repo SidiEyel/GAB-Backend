@@ -1,10 +1,12 @@
 package com.project.gab.security.auth;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.project.gab.api.AccountController;
 import com.project.gab.entity.Customer;
 import com.project.gab.entity.Role;
 import com.project.gab.repo.CustomerRepo;
@@ -24,6 +26,9 @@ public class AuthenticationService {
   private final PasswordEncoder passwordEncoder;
   private final JwtService jwtService;
   private final AuthenticationManager authenticationManager;
+  
+  @Autowired
+	private AccountController accountController;
 
   public AuthenticationResponse register(RegisterRequest request) {
     var user = Customer.builder()
@@ -35,6 +40,10 @@ public class AuthenticationService {
         .build();
     var savedUser = repository.save(user);
     var jwtToken = jwtService.generateToken(user);
+
+     // create account for the newly registered customer
+     accountController.createAccount(savedUser.getId(), 0, "Active");
+    
     saveUserToken(savedUser, jwtToken);
     return AuthenticationResponse.builder()
         .token(jwtToken)
